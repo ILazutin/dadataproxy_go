@@ -1,0 +1,15 @@
+env: "prod"
+
+redis: 
+  url: "cache:6379"
+  password: secret
+  expire: 2592000s
+
+http_server:
+  address: "0.0.0.0:3001"
+  timeout: 4s
+  idle_timeout: 60s
+
+dadata:
+  token: "token"
+  secret: "secret"

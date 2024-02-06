@@ -1,0 +1,29 @@
+version: '3.9'
+
+services:
+  cache:
+    image: redis:6.2-alpine
+    restart: always
+    ports:
+      - '6379'
+    command: redis-server --save 20 1 --loglevel warning --requirepass secret
+    volumes:
+      - cache:/data
+
+  api:
+    container_name: dadataproxy-go-api
+    build:
+      context: ./
+      dockerfile: ./Dockerfile
+    image: dadataproxy-go-api
+    depends_on:
+      - cache
+    ports:
+      - 3001:3001
+    links:
+      - cache
+    volumes:
+      - ./:/src
+volumes:
+  cache:
+    driver: local

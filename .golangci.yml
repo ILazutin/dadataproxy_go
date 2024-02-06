@@ -1,0 +1,83 @@
+linters-settings:
+  errcheck:
+    check-type-assertions: true
+  govet:
+    check-shadowing: true
+  cyclop:
+    max-complexity: 16
+    skip-tests: true
+  dupl:
+    threshold: 100
+  goconst:
+    min-len: 2
+    min-occurrences: 2
+  lll:
+    line-length: 140
+  misspell:
+    locale: US
+  unparam:
+    check-exported: true
+  godot:
+    scope: declarations
+    period: true
+  goimports:
+    local-prefixes: github.com/ilazutin/dadataproxy_go
+  depguard:
+    rules:
+      main:
+        allow:
+          - $gostd
+          - github.com/ilazutin/dadataproxy_go
+          - github.com/stretchr/testify
+          - github.com/segmentio/kafka-go
+          - github.com/prometheus/client_golang/prometheus
+          - github.com/rabbitmq/amqp091-go
+          - github.com/redis/go-redis
+          - github.com/avast/retry-go
+          - github.com/json-iterator/go
+          - github.com/grpc-ecosystem/grpc-gateway
+          - github.com/spf13/pflag
+          - github.com/spf13/viper
+linters:
+  enable-all: true
+  disable:
+    - forbidigo
+    - wsl
+    - interfacer # https://github.com/golangci/interfacer is deprecated because of too many false suggestions.
+    - gci
+    - godox
+    - wrapcheck
+    - nlreturn
+    - exhaustivestruct
+    - gofumpt
+    # Enforcing external-only tests would affect coverage, also see
+    # https://dave.cheney.net/practical-go/presentations/gophercon-singapore-2019.html#_prefer_internal_tests_to_external_tests.
+    - testpackage
+    - goerr113
+    - exhaustruct
+    - varnamelen
+    - golint # deprecated (since v1.41.0)
+    - deadcode # deprecated (since v1.49.0)
+    - nosnakecase # deprecated (since v1.48.1)
+    - scopelint # deprecated (since v1.39.0)
+    - structcheck # deprecated (since v1.49.0)
+    - varcheck # deprecated (since v1.49.0)
+    - ifshort # deprecated (since v1.48.0)
+    - maligned # deprecated (since v1.38.0)
+issues:
+  exclude-rules:
+    - path: _test.go
+      linters:
+        - bodyclose
+        - paralleltest
+        - noctx
+        - forcetypeassert
+        - nosnakecase
+        - ireturn
+    - path: _endpoint.go
+      linters:
+        - dupl
+        - ireturn
+  max-per-linter: 0
+  max-same-issues: 0
+  new: false
